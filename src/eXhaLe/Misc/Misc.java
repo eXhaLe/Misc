@@ -101,7 +101,7 @@ public class Misc extends JavaPlugin {
 		    {
 		    	System.out.println("Cannot use this command from the console.");
 		    }
-
+		    return true;
 	    }
 
 	    return false;
