@@ -53,19 +53,59 @@ public class Misc extends JavaPlugin {
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
     }
     
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
     {
-        if (sender instanceof Player)
-        {
-        	// Very ugly. Some day this needs to be fixed.
-            String[] aags = new String[args.length + 1];
-            aags[0] = "/" + label;
-            for (int i = 0; i < args.length; i++)
-                aags[i+1] = args[i];
-            return playerListener.onPlayerCommand((Player)sender, aags);
-        }
-        return false;
+	    if ( cmd.getName().compareToIgnoreCase("rep") == 0 )
+	    {
+		    if(sender instanceof Player)
+		    {
+		    	Player player = (Player) sender;
+
+		    	if (args.length > 0)
+		    	{
+		    		// Display help
+		    		if (args[0].equalsIgnoreCase("help"))
+		    		{
+		    			player.sendMessage("§3-- rep Help --");
+		    			player.sendMessage("§5Usage: /rep <command>");
+		    			player.sendMessage("§2Available commands are: §1hand, all and more");
+		    		}
+		    		// Repair tool in hand
+		    		else if (args[0].equalsIgnoreCase("hand"))
+		    		{
+		    			// Add a check, is there an item in hand?
+		    			player.getItemInHand().setDurability((short) 0);
+		    			player.sendMessage("Tool repaired");
+		    		}
+		    		// Repair hole inventory if possible?
+		    		else if (args[0].equalsIgnoreCase("all"))
+		    		{
+		    			// add code to repair all tools in inventory
+		    		}
+		    		// Give 1 extra of the item in hand
+		    		else if (args[0].equalsIgnoreCase("more"))
+		    		{
+		    			// Add a check, is there an item in hand?
+		    			player.getItemInHand().setAmount(player.getItemInHand().getAmount() + 1);
+		    			player.sendMessage("Item in hand + 1");
+		    		}
+		    		// if none of the above match return usage information
+		    		else
+		    		{
+		    			player.sendMessage("§4Incorrect usage; try /rep help for help.");
+		    		}
+		    	}
+		
+		    }
+		    else
+		    {
+		    	System.out.println("Cannot use this command from the console.");
+		    }
+
+	    }
+
+	    return false;
+
     }
 
     public boolean isDebugging(final Player player) {
