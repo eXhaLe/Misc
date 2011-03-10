@@ -1,0 +1,9 @@
+name: Misc
+main: eXhaLe.Misc.Misc
+version: 0.1
+
+commands:
+   rep:
+     description: repair your tools
+     usage: /<command> <subcommand>
+      
